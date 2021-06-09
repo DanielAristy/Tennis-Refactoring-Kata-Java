@@ -5,6 +5,7 @@ public class TennisGame1 implements TennisGame {
     private int scorePlayer2 = 0;
     private String player1Name;
     private String player2Name;
+    private String score = "";
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -12,20 +13,16 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            scorePlayer1 += 1;
-        else
-            scorePlayer2 += 1;
+        if (playerName == "player1") scorePlayer1 += 1;
+        else scorePlayer2 += 1;
     }
 
     public String getScore() {
-        String score = "";
-        int tempScore=0;
-        if (scorePlayer1 == scorePlayer2)
+        if (isSameNumber(scorePlayer1, scorePlayer2))
         {
             score = showDrawMessage();
         }
-        else if (scorePlayer1 >=4 || scorePlayer2 >=4)
+        else if (isGreaterThan(scorePlayer1,4) || isGreaterThan(scorePlayer2,4))
         {
             score = showFinalMessage();
         }
@@ -34,6 +31,14 @@ public class TennisGame1 implements TennisGame {
             score = showScoreMessage(score);
         }
         return score;
+    }
+
+    private boolean isGreaterThan(int scorePlayer1, int biggerNumber) {
+        return scorePlayer1 >= biggerNumber;
+    }
+
+    private boolean isSameNumber(int scorePlayer1, int scorePlayer2) {
+        return scorePlayer1 == scorePlayer2;
     }
 
     private String showScoreMessage(String score) {
@@ -49,33 +54,20 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String showFinalMessage() {
-        String score;
         int minusResult = scorePlayer1 - scorePlayer2;
-        if (minusResult==1) score ="Advantage player1";
-        else if (minusResult ==-1) score ="Advantage player2";
-        else if (minusResult>=2) score = "Win for player1";
-        else score ="Win for player2";
+        if (isSameNumber(minusResult,1)) score ="Advantage player1";
+        else if (isSameNumber(minusResult,-1)) score ="Advantage player2";
+        else if (isGreaterThan(minusResult,2)) score = "Win for player1";
+        else score = "Win for player2";
         return score;
     }
 
     private String showDrawMessage() {
-        String score;
-        switch (scorePlayer1)
-        {
-            case 0:
-                    score = "Love-All";
-                break;
-            case 1:
-                    score = "Fifteen-All";
-                break;
-            case 2:
-                    score = "Thirty-All";
-                break;
-            default:
-                    score = "Deuce";
-                break;
-            
-        }
-        return score;
+        String palabras[] = {"Love-All", "Fifteen-All", "Thirty-All"};
+        return (isLessThanOrEqual(scorePlayer1, 2)) ? palabras[scorePlayer1] : "Deuce";
+    }
+
+    private boolean isLessThanOrEqual(int scorePlayer1, int minorNumber) {
+        return scorePlayer1 <= minorNumber;
     }
 }
