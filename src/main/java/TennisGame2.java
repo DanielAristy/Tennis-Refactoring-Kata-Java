@@ -9,6 +9,7 @@ public class TennisGame2 implements TennisGame
     private String player1Name;
     private String player2Name;
     private String palabras[] = {"Love","Fifteen","Thirty","Forty"};
+    private String score = "";
 
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -16,7 +17,7 @@ public class TennisGame2 implements TennisGame
     }
 
     public String getScore(){
-        String score = "";
+
         if (isSameNumber(P1point,P2point) && isLessThan(P1point,4))
         {
             score = (isGreaterOrEqualThan(P1point,0) &&
@@ -25,42 +26,41 @@ public class TennisGame2 implements TennisGame
         }
         if (isSameNumber(P1point,P2point)&& isGreaterOrEqualThan(P1point,3))
             score = "Deuce";
-        
+
         if (isGreaterThan(P1point,0) && isSameNumber(P2point,0))
         {
             //mayor> 0 o menor que cuatro
             P1res = (isGreaterOrEqualThan(P1point,0) &&
                     isLessThan(P1point,4))? palabras[P1point] : "";
             P2res = "Love";
-            score = P1res + "-" + P2res;
+            showPlayerScore();
         }
         if (isGreaterThan(P2point,0) && isSameNumber(P1point,0))
         {
             P2res = (isGreaterOrEqualThan(P2point,0) &&
                     isLessThan(P2point,4))? palabras[P2point] : "";
             P1res = "Love";
-            score = P1res + "-" + P2res;
+            showPlayerScore();
         }
-
 
         if (isGreaterThan(P1point,P2point) && isLessThan(P1point,4))
         {
             P1res = (isSameNumber(P1point,2))? palabras[P1point] : palabras[P1point];
             P2res = (isSameNumber(P2point,1))? palabras[P2point] : palabras[P2point];
-            score = P1res + "-" + P2res;
+            showPlayerScore();
         }
         if (isGreaterThan(P2point,P1point) && isLessThan(P2point,4))
         {
             P2res = (isSameNumber(P2point,2))? palabras[P2point] : palabras[P2point];
             P1res = (isSameNumber(P1point,1))? palabras[P1point] : palabras[P1point];
-            score = P1res + "-" + P2res;
+            showPlayerScore();
         }
-        // es mayor que && es mayor igual que
+
+
         if (isGreaterThan(P1point,P2point) && isGreaterOrEqualThan(P2point,3))
         {
             score = "Advantage player1";
         }
-        // es mayor que && es mayor igual que
         if (isGreaterThan(P2point,P1point)&& isGreaterOrEqualThan(P1point,3))
         {
             score = "Advantage player2";
@@ -79,6 +79,10 @@ public class TennisGame2 implements TennisGame
             score = "Win for player2";
         }
         return score;
+    }
+
+    private void showPlayerScore() {
+        score = P1res + "-" + P2res;
     }
 
     private boolean isLessThan(int scorePlayer1, int minorNumber){
