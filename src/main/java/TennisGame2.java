@@ -8,7 +8,7 @@ public class TennisGame2 implements TennisGame
     public String P2res = "";
     private String player1Name;
     private String player2Name;
-    private String palabras[] = {"Fifteen","Thirty","Forty"};
+    private String palabras[] = {"Love","Fifteen","Thirty","Forty"};
 
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -19,12 +19,8 @@ public class TennisGame2 implements TennisGame
         String score = "";
         if (isSameNumber(P1point,P2point) && isLessThan(P1point,4))
         {
-            if (isSameNumber(P1point,0))
-                score = "Love";
-            if (isSameNumber(P1point,1))
-                score = "Fifteen";
-            if (isSameNumber(P1point,2))
-                score = "Thirty";
+            score = (isGreaterOrEqualThan(P1point,0) &&
+                    isLessThan(P1point,3))? palabras[P1point] : "";
             score += "-All";
         }
         if (isSameNumber(P1point,P2point)&& isGreaterOrEqualThan(P1point,3))
@@ -33,13 +29,15 @@ public class TennisGame2 implements TennisGame
         if (isGreaterThan(P1point,0) && isSameNumber(P2point,0))
         {
             //mayor> 0 o menor que cuatro
-            P1res = (isGreaterOrEqualThan(P1point,0) && isLessThan(P1point,4))? palabras[P1point - 1] : "";
+            P1res = (isGreaterOrEqualThan(P1point,0) &&
+                    isLessThan(P1point,4))? palabras[P1point] : "";
             P2res = "Love";
             score = P1res + "-" + P2res;
         }
         if (isGreaterThan(P2point,0) && isSameNumber(P1point,0))
         {
-            P2res = (isGreaterOrEqualThan(P2point,0) && isLessThan(P2point,4))? palabras[P2point - 1] : "";
+            P2res = (isGreaterOrEqualThan(P2point,0) &&
+                    isLessThan(P2point,4))? palabras[P2point] : "";
             P1res = "Love";
             score = P1res + "-" + P2res;
         }
@@ -47,27 +45,14 @@ public class TennisGame2 implements TennisGame
 
         if (isGreaterThan(P1point,P2point) && isLessThan(P1point,4))
         {
-
-            if (isSameNumber(P1point,2))
-                P1res="Thirty";
-            if (isSameNumber(P1point,3))
-                P1res="Forty";
-            if (isSameNumber(P2point,1))
-                P2res="Fifteen";
-            if (isSameNumber(P2point,2))
-                P2res="Thirty";
+            P1res = (isSameNumber(P1point,2))? palabras[P1point] : palabras[P1point];
+            P2res = (isSameNumber(P2point,1))? palabras[P2point] : palabras[P2point];
             score = P1res + "-" + P2res;
         }
         if (isGreaterThan(P2point,P1point) && isLessThan(P2point,4))
         {
-            if (isSameNumber(P2point,2))
-                P2res="Thirty";
-            if (isSameNumber(P2point,3))
-                P2res="Forty";
-            if (isSameNumber(P1point,1))
-                P1res="Fifteen";
-            if (isSameNumber(P1point,2))
-                P1res="Thirty";
+            P2res = (isSameNumber(P2point,2))? palabras[P2point] : palabras[P2point];
+            P1res = (isSameNumber(P1point,1))? palabras[P1point] : palabras[P1point];
             score = P1res + "-" + P2res;
         }
         // es mayor que && es mayor igual que
@@ -81,18 +66,22 @@ public class TennisGame2 implements TennisGame
             score = "Advantage player2";
         }
 
-        if (isGreaterOrEqualThan(P1point,4) && isGreaterOrEqualThan(P2point,0) && isGreaterOrEqualThan(substractNumbers(P1point,P2point),2))
+        if (isGreaterOrEqualThan(P1point,4) &&
+                isGreaterOrEqualThan(P2point,0) &&
+                isGreaterOrEqualThan(substractNumbers(P1point,P2point),2))
         {
             score = "Win for player1";
         }
-        if (isGreaterOrEqualThan(P2point, 4) &&  isGreaterOrEqualThan(P1point,0) && isGreaterOrEqualThan(substractNumbers(P2point,P1point),2))
+        if (isGreaterOrEqualThan(P2point, 4) &&
+                isGreaterOrEqualThan(P1point,0) &&
+                isGreaterOrEqualThan(substractNumbers(P2point,P1point),2))
         {
             score = "Win for player2";
         }
         return score;
     }
 
-    private boolean isLessThan(int scorePlayer1, int minorNumber) {
+    private boolean isLessThan(int scorePlayer1, int minorNumber){
         return scorePlayer1 < minorNumber;
     }
 

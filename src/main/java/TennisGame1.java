@@ -46,7 +46,7 @@ public class TennisGame1 implements TennisGame {
         int tempScore;
         for (int i = 1; i<3; i++)
         {
-            if (i==1) tempScore = scorePlayer1;
+            if (isSameNumber(i, 1)) tempScore = scorePlayer1;
             else { score +="-"; tempScore = scorePlayer2;}
             score += palabras[tempScore];
         }
